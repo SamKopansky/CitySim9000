@@ -7,13 +7,11 @@ public class MockGamePlay
 {
 	private Driver driver;
 	private int driverNumber;
-	private Random rand;
 	
 	public MockGamePlay(Driver d, int dnum, Random r)
 	{
 		driver = d;
 		driverNumber = dnum;
-		rand = r;
 	}
 	
 	public boolean start()
@@ -65,6 +63,6 @@ public class MockGamePlay
 	
 	public int getNewDirection(Random r)
 	{
-		return r.nextInt(2);
+		return 0;
 	}
 }

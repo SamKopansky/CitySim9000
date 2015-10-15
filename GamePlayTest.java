@@ -30,7 +30,7 @@ public class GamePlayTest
 	
 	
 	//Tests if all four locations in the city have readable names & exist 
-	//This test usues 6 doubles
+	//This test uses 5 doubles
 	@Test
 	public void testCityLocs()
 	{
@@ -41,6 +41,15 @@ public class GamePlayTest
 		assertTrue("Coffee Shop".equals(gp.decode(2)));
 		assertTrue("University".equals(gp.decode(3)));
 		assertTrue("Outside City".equals(gp.decode(4)));
+	}
+	
+	//This test uses a number that is not mapped to a location in the city
+	//THIS SHOULD FAIL
+	@Test
+	public void testOutOfCity()
+	{
+		Random r = new Random(10);
+		GamePlay gp = new GamePlay(new Driver(0), 0, r);
 		assertTrue("Nothing".equals(gp.decode(9))); //This should fail since 9 is not on the map
 	}
 	
@@ -63,7 +72,17 @@ public class GamePlayTest
 		assertTrue(gp.getStreet(4, 3).equals(" via Fifth Ave."));
 	}
 	
-	//Test checking if all numbers map to the correct location.
+	//Sees if two non-connected locations can be visited directly
+	//THIS SHOULD FAIL
+	@Test
+	public void testNonExistentStreet()
+	{
+		Random r = new Random(10);
+		GamePlay gp = new GamePlay(new Driver(0), 0, r);
+		assertTrue(gp.getStreet(4, 1).equals(" via Sidewalk"));
+	}
+	
+	//Test checking if all numbers map to the correct next location.
 	@Test
 	public void testMapNumbers()
 	{
@@ -80,6 +99,17 @@ public class GamePlayTest
 		assertEquals(gp.getNewLoc(4, 0), 0);
 		assertEquals(gp.getNewLoc(4, 1), 3);
 	}
+	
+	//Test checking if non-existent location can be reached
+	//THIS TEST SHOULD FAIL
+		@Test
+		public void testGoToBadLocation()
+		{
+			Random r = new Random(10);
+			GamePlay gp = new GamePlay(new Driver(0), 0, r);
+			assertEquals(gp.getNewLoc(9, 0), 0);
+			
+		}
 	
 	//This test uses a mock class and stubs for almost all methods 
 	//in GamePlay to quickly test the start() method without as many calculations
